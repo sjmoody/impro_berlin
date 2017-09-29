@@ -15,20 +15,29 @@ class ImproBerlin::Scraper
   end
 
   def self.scrape_details_page(show, details_url)
-    event_doc = Nokogiri::HTML(open(details_url))
+    if details_url =~ URI::regexp
+      event_doc = Nokogiri::HTML(open(details_url))
+      iframe_url = event_doc.search("iframe").attr("src").value
+      iframe_details = self.scrape_eventbrite_page(show, iframe_url)
+    else
+      puts "Not valid URL: #{iframe_url}.  Exiting..."
+      exit
+    end
 
-    iframe_url = event_doc.search("iframe").attr("src").value
-    
-    iframe_details = self.scrape_eventbrite_page(show, iframe_url)
     show
   end
 
   def self.scrape_eventbrite_page(show, iframe_url)
+    if iframe_url =~ URI::regexp
+      doc = Nokogiri::HTML(open(iframe_url))
+      show.price = doc.search("div.js-display-price").first.text.strip
+      show.description = doc.search("div.js-xd-read-more-contents").first.text.strip
+      show.location = doc.search("div.event-details__data")[1].text.strip
+    else
+      puts "Not valid URL: #{iframe_url}.  Exiting..."
+      exit
+    end
 
-    doc = Nokogiri::HTML(open(iframe_url))
-    show.price = doc.search("div.js-display-price").first.text.strip
-    show.description = doc.search("div.js-xd-read-more-contents").first.text.strip
-    show.location = doc.search("div.event-details__data")[1].text.strip
     show
   end
 end
