@@ -5,14 +5,7 @@
    @all = []
 
    def initialize
-
-   end
-
-   def self.create_from_page(shows_array)
-     #This should take array of shows and create new shows to display
-     shows_array.each do |hash|
-       Show.new(hash)
-     end
+     @all << self
    end
 
    def self.all
