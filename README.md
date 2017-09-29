@@ -1,8 +1,6 @@
 # ImproBerlin
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/impro_berlin`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem finds impro events in Berlin and displays them in the command line.
 
 ## Installation
 
@@ -21,8 +19,8 @@ Or install it yourself as:
     $ gem install impro_berlin
 
 ## Usage
+This app will initiate a command line with upcoming events.  You can choose an event to view more details by selecting it from the list.
 
-TODO: Write usage instructions here
 
 ## Development
 
